@@ -307,7 +307,7 @@ public class LibreOfficeMainActivity extends AppCompatActivity implements Shared
     private void updatePreferences() {
         SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mIsExperimentalMode = BuildConfig.ALLOW_EDITING
-                && sPrefs.getBoolean(ENABLE_EXPERIMENTAL_PREFS_KEY, false);
+            && sPrefs.getBoolean(ENABLE_EXPERIMENTAL_PREFS_KEY, BuildConfig.WORD_IMPRESS_ONLY);
         mIsDeveloperMode = mIsExperimentalMode
                 && sPrefs.getBoolean(ENABLE_DEVELOPER_PREFS_KEY, false);
         if (sPrefs.getInt(ASSETS_EXTRACTED_PREFS_KEY, 0) != BuildConfig.VERSION_CODE) {

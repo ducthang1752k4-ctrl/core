@@ -1,0 +1,12 @@
+<resources>
+    <dimen name="list_item_margin">18dp</dimen>
+    <dimen name="file_icon_width">48dp</dimen>
+    <dimen name="file_icon_margin_end">14dp</dimen>
+    <dimen name="recent_item_height">80dp</dimen>
+    <dimen name="toolbar_height">240dp</dimen>
+    <dimen name="calc_header_width">80dp</dimen>
+    <dimen name="calc_header_height">36dp</dimen>
+    <dimen name="calc_address_bar_width">160dp</dimen>
+    <dimen name="new_doc_fab_tweak_top">-5dp</dimen>
+    <dimen name="new_doc_fab_tweak_bottom">-1dp</dimen>
+</resources>

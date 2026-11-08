@@ -74,9 +74,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:minHeight="64dp"
                     android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:text="@string/select_file_to_open"
-                    android:textSize="14dp"
+                    android:textSize="16sp"
                     app:drawableLeftCompat="@drawable/ic_folder_48dp" />
 
                 <TextView
@@ -95,7 +98,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp" />
 
             </LinearLayout>
 

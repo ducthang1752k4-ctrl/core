@@ -2,8 +2,18 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+val liboSettingsFile = file("liboSettings.gradle.kts")
+if (!liboSettingsFile.exists()) {
+    throw GradleException(
+        "Missing generated Android config: ${liboSettingsFile.absolutePath}. " +
+        "Run the LibreOffice Android configure step first, e.g.:\n" +
+        "cd /workspaces/core && ./autogen.sh --enable-dbgutil --enable-werror --with-distro=LibreOfficeAndroid --with-android-sdk=$ANDROID_HOME --with-android-ndk=$ANDROID_HOME/ndk/<version> --with-android-api-level=28\n" +
+        "Then build with: cd /workspaces/core/android && ./gradlew assembleWordImpressRelease"
+    )
+}
+
 // buildhost settings - paths and the like
-apply(from = file("liboSettings.gradle.kts"))
+apply(from = liboSettingsFile)
 
 val liboInstdir: String by extra
 val liboUREJavaFolder: String by extra
@@ -60,6 +70,7 @@ android {
         buildConfigField("String", "BUILD_ID_SHORT", buildIdShort)
         buildConfigField("String", "VENDOR", vendor)
         buildConfigField("String", "PRIVACY_POLICY_URL", privacyPolicyUrl)
+        buildConfigField("boolean", "WORD_IMPRESS_ONLY", "false")
     }
 
     buildFeatures {
@@ -107,6 +118,11 @@ android {
         create("strippedUIEditing") {
             dimension = "default"
             buildConfigField("boolean", "ALLOW_EDITING", "true")
+        }
+        create("wordImpress") {
+            dimension = "default"
+            buildConfigField("boolean", "ALLOW_EDITING", "true")
+            buildConfigField("boolean", "WORD_IMPRESS_ONLY", "true")
         }
 
         // product flavor for Meta Quest devices (Horizon OS)

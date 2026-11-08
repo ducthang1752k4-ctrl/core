@@ -13,6 +13,7 @@ import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.drawable.Icon;
@@ -130,6 +131,24 @@ public class LibreOfficeUIActivity extends AppCompatActivity implements View.OnC
     private FloatingActionButton editFAB;
     private FloatingActionButton writerFAB;
     private FloatingActionButton drawFAB;
+
+    private static final String[] WORD_IMPRESS_MIME_TYPES = {
+            "application/vnd.oasis.opendocument.text",
+            "application/vnd.oasis.opendocument.presentation",
+            "application/vnd.oasis.opendocument.text-flat-xml",
+            "application/vnd.oasis.opendocument.presentation-flat-xml",
+            "application/vnd.oasis.opendocument.text-template",
+            "application/vnd.oasis.opendocument.presentation-template",
+            "application/rtf",
+            "text/rtf",
+            "application/msword",
+            "application/vnd.ms-powerpoint",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.template",
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            "application/vnd.openxmlformats-officedocument.presentationml.slideshow",
+            "application/vnd.openxmlformats-officedocument.presentationml.template",
+    };
     private FloatingActionButton impressFAB;
     private FloatingActionButton calcFAB;
     private LinearLayout drawLayout;
@@ -191,7 +210,8 @@ public class LibreOfficeUIActivity extends AppCompatActivity implements View.OnC
         editFAB.setOnClickListener(this);
         // allow creating new docs only when experimental editing is enabled
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final boolean bEditingEnabled = BuildConfig.ALLOW_EDITING && preferences.getBoolean(LibreOfficeMainActivity.ENABLE_EXPERIMENTAL_PREFS_KEY, false);
+        final boolean bEditingEnabled = BuildConfig.ALLOW_EDITING && preferences.getBoolean(
+            LibreOfficeMainActivity.ENABLE_EXPERIMENTAL_PREFS_KEY, BuildConfig.WORD_IMPRESS_ONLY);
         editFAB.setVisibility(bEditingEnabled ? View.VISIBLE : View.INVISIBLE);
 
         impressFAB = findViewById(R.id.newImpressFAB);
@@ -206,6 +226,10 @@ public class LibreOfficeUIActivity extends AppCompatActivity implements View.OnC
         impressLayout = findViewById(R.id.impressLayout);
         calcLayout = findViewById(R.id.calcLayout);
         drawLayout = findViewById(R.id.drawLayout);
+        if (BuildConfig.WORD_IMPRESS_ONLY) {
+            calcLayout.setVisibility(View.GONE);
+            drawLayout.setVisibility(View.GONE);
+        }
         TextView openFileView = findViewById(R.id.open_file_button);
         openFileView.setOnClickListener(this);
 
@@ -225,7 +249,12 @@ public class LibreOfficeUIActivity extends AppCompatActivity implements View.OnC
             }
         }
 
-        recentRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        final Configuration config = getResources().getConfiguration();
+        final boolean isTablet = config.smallestScreenWidthDp >= 600;
+        final boolean isLandscapeTablet = isTablet && config.orientation == Configuration.ORIENTATION_LANDSCAPE;
+        final int recentColumns = isLandscapeTablet ? 4 : (isTablet ? 3 : 2);
+        recentRecyclerView.setLayoutManager(new GridLayoutManager(this, recentColumns));
+        recentRecyclerView.setHasFixedSize(true);
         recentRecyclerView.setAdapter(new RecentFilesAdapter(this, recentFiles));
         setupWindowInsetsListener();
     }
@@ -291,7 +320,8 @@ public class LibreOfficeUIActivity extends AppCompatActivity implements View.OnC
     private void showSystemFilePickerAndOpenFile() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("*/*");
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, SUPPORTED_MIME_TYPES);
+        intent.putExtra(Intent.EXTRA_MIME_TYPES,
+            BuildConfig.WORD_IMPRESS_ONLY ? WORD_IMPRESS_MIME_TYPES : SUPPORTED_MIME_TYPES);
 
         try {
             startActivityForResult(intent, REQUEST_CODE_OPEN_FILECHOOSER);
