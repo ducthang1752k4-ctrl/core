@@ -27,7 +27,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            autoconf bison build-essential ccache flex gperf graphviz \
+            autoconf bison build-essential ccache flex gperf graphviz libarchive-zip-perl \
             libkrb5-dev libfontconfig1-dev libcups2-dev libx11-dev \
             libxext-dev libxrender-dev libxrandr-dev libxinerama-dev \
             libxfixes-dev libxcursor-dev libxcomposite-dev libxdamage-dev \
