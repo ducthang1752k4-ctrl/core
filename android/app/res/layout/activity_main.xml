@@ -91,6 +91,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_toRightOf="@+id/calc_header_row"
                     android:layout_below="@+id/calc_header_column">
 
@@ -138,7 +140,7 @@
 
     <ListView
         android:id="@+id/left_drawer"
-        android:layout_width="240dp"
+        android:layout_width="@dimen/left_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#9FFF"

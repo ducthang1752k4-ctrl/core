@@ -37,6 +37,10 @@
         android:id="@+id/drawer_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintWidth_max="980dp"
+        app:layout_constraintHorizontal_bias="0.5"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
@@ -56,6 +60,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:divider="@color/doorhanger_divider_light"
                 android:showDividers="middle">
 
@@ -74,10 +82,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:minHeight="64dp"
+                    android:minHeight="68dp"
                     android:gravity="center_vertical"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
                     android:text="@string/select_file_to_open"
                     android:textSize="16sp"
                     app:drawableLeftCompat="@drawable/ic_folder_48dp" />
@@ -97,10 +105,10 @@
                     android:id="@+id/list_recent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
 
             </LinearLayout>
 
@@ -115,6 +123,8 @@
         android:contentDescription="@string/create_file"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:clickable="true"
         app:backgroundTint="@color/background_floating"
         app:fabSize="normal"

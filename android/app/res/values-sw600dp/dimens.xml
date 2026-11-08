@@ -1,11 +1,11 @@
 <resources>
-    <dimen name="list_item_margin">12dp</dimen>
-    <dimen name="file_icon_width">40dp</dimen>
+    <dimen name="list_item_margin">14dp</dimen>
+    <dimen name="file_icon_width">42dp</dimen>
     <dimen name="file_icon_margin_end">12dp</dimen>
-    <dimen name="recent_item_height">64dp</dimen>
-    <dimen name="calc_header_width">64dp</dimen>
+    <dimen name="recent_item_height">68dp</dimen>
+    <dimen name="calc_header_width">68dp</dimen>
     <dimen name="calc_header_height">32dp</dimen>
-    <dimen name="calc_address_bar_width">120dp</dimen>
-    <dimen name="new_doc_fab_tweak_top">-8dp</dimen>
-    <dimen name="new_doc_fab_tweak_bottom">-4dp</dimen>
+    <dimen name="calc_address_bar_width">128dp</dimen>
+    <dimen name="new_doc_fab_tweak_top">-6dp</dimen>
+    <dimen name="new_doc_fab_tweak_bottom">-2dp</dimen>
 </resources>

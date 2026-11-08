@@ -1,12 +1,13 @@
 <resources>
-    <dimen name="list_item_margin">16dp</dimen>
-    <dimen name="file_icon_width">44dp</dimen>
-    <dimen name="file_icon_margin_end">12dp</dimen>
-    <dimen name="recent_item_height">72dp</dimen>
-    <dimen name="toolbar_height">220dp</dimen>
-    <dimen name="calc_header_width">72dp</dimen>
-    <dimen name="calc_header_height">32dp</dimen>
-    <dimen name="calc_address_bar_width">140dp</dimen>
-    <dimen name="new_doc_fab_tweak_top">-6dp</dimen>
-    <dimen name="new_doc_fab_tweak_bottom">-2dp</dimen>
+    <dimen name="list_item_margin">18dp</dimen>
+    <dimen name="file_icon_width">46dp</dimen>
+    <dimen name="file_icon_margin_end">14dp</dimen>
+    <dimen name="recent_item_height">76dp</dimen>
+    <dimen name="toolbar_height">224dp</dimen>
+    <dimen name="left_drawer_width">300dp</dimen>
+    <dimen name="calc_header_width">76dp</dimen>
+    <dimen name="calc_header_height">34dp</dimen>
+    <dimen name="calc_address_bar_width">148dp</dimen>
+    <dimen name="new_doc_fab_tweak_top">-2dp</dimen>
+    <dimen name="new_doc_fab_tweak_bottom">2dp</dimen>
 </resources>
