@@ -15,7 +15,9 @@ fi
 SDK_ROOT="${ANDROID_HOME:-${ANDROID_SDK_ROOT}}"
 BUILD_JOBS="${BUILD_JOBS:-$(nproc)}"
 
-if [ -d "${SDK_ROOT}/ndk" ]; then
+if [ -n "${ANDROID_NDK_VERSION:-}" ]; then
+  NDK_DIR="${SDK_ROOT}/ndk/${ANDROID_NDK_VERSION}"
+elif [ -d "${SDK_ROOT}/ndk" ]; then
   NDK_DIR="$(find "${SDK_ROOT}/ndk" -mindepth 1 -maxdepth 1 -type d | sort | tail -n 1)"
 else
   NDK_DIR=""

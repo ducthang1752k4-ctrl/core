@@ -55,6 +55,7 @@ jobs:
 
       - name: Build release APK
         env:
+          ANDROID_NDK_VERSION: '27.2.12479018'
           BUILD_JOBS: '2'
         run: ./build_android9_word_impress.sh
 
