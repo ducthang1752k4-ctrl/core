@@ -1,0 +1,65 @@
+name: Android Word and Impress APK
+
+on:
+  push:
+    branches:
+      - android9-word-impress-tablet-final-ui
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            autoconf bison build-essential ccache flex gperf graphviz \
+            libkrb5-dev libfontconfig1-dev libcups2-dev libx11-dev \
+            libxext-dev libxrender-dev libxrandr-dev libxinerama-dev \
+            libxfixes-dev libxcursor-dev libxcomposite-dev libxdamage-dev \
+            libxml2-utils libxslt1-dev nasm python3 python3-dev zip unzip \
+            xsltproc
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android platforms and NDK
+        run: |
+          SDK_ROOT="${ANDROID_HOME:-${ANDROID_SDK_ROOT}}"
+          SDKMANAGER="$(find "$SDK_ROOT/cmdline-tools" -type f -name sdkmanager | sort | tail -n 1)"
+          printf 'y\n%.0s' {1..50} | "$SDKMANAGER" --licenses
+          "$SDKMANAGER" \
+            "platform-tools" \
+            "platforms;android-28" \
+            "platforms;android-36" \
+            "build-tools;36.0.0" \
+            "ndk;27.2.12479018"
+          echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
+          echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
+
+      - name: Build release APK
+        env:
+          BUILD_JOBS: '2'
+        run: ./build_android9_word_impress.sh
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: LibreOffice-Word-Impress-Android-9-plus
+          path: android/app/build/outputs/apk/wordImpress/release/*.apk
+          if-no-files-found: error
+          retention-days: 7

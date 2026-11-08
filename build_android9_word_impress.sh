@@ -13,6 +13,7 @@ if [ -z "${ANDROID_HOME:-}" ] && [ -z "${ANDROID_SDK_ROOT:-}" ]; then
 fi
 
 SDK_ROOT="${ANDROID_HOME:-${ANDROID_SDK_ROOT}}"
+BUILD_JOBS="${BUILD_JOBS:-$(nproc)}"
 
 if [ -d "${SDK_ROOT}/ndk" ]; then
   NDK_DIR="$(find "${SDK_ROOT}/ndk" -mindepth 1 -maxdepth 1 -type d | sort | tail -n 1)"
@@ -28,6 +29,7 @@ fi
 
 echo "[INFO] SDK root: ${SDK_ROOT}"
 echo "[INFO] NDK root: ${NDK_DIR}"
+echo "[INFO] Build jobs: ${BUILD_JOBS}"
 
 echo "[INFO] Running LibreOffice Android configure..."
 ./autogen.sh \
@@ -37,6 +39,9 @@ echo "[INFO] Running LibreOffice Android configure..."
   --with-android-sdk="${SDK_ROOT}" \
   --with-android-ndk="${NDK_DIR}" \
   --with-android-api-level=28
+
+echo "[INFO] Building LibreOffice core and Android native library..."
+ENABLE_ANDROID_LOK=TRUE make -j"${BUILD_JOBS}"
 
 echo "[INFO] Building Word/PowerPoint Android flavor..."
 cd android

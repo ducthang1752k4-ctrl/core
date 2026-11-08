@@ -7,7 +7,7 @@ if (!liboSettingsFile.exists()) {
     throw GradleException(
         "Missing generated Android config: ${liboSettingsFile.absolutePath}. " +
         "Run the LibreOffice Android configure step first, e.g.:\n" +
-        "cd /workspaces/core && ./autogen.sh --enable-dbgutil --enable-werror --with-distro=LibreOfficeAndroid --with-android-sdk=$ANDROID_HOME --with-android-ndk=$ANDROID_HOME/ndk/<version> --with-android-api-level=28\n" +
+        "cd /workspaces/core && ./autogen.sh --enable-dbgutil --enable-werror --with-distro=LibreOfficeAndroid --with-android-sdk=\$ANDROID_HOME --with-android-ndk=\$ANDROID_HOME/ndk/<version> --with-android-api-level=28\n" +
         "Then build with: cd /workspaces/core/android && ./gradlew assembleWordImpressRelease"
     )
 }
